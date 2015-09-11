@@ -1600,63 +1600,6 @@ function parseDocument($container) {
 		});
 	}
 
-	/**
-	* Collapse forums
-	*/
-	if (styleConfig.collapseForums) {
-		$container.find('.forabg li.header').each(function() {
-			var $this = $(this),
-				forum = $this.parent().next('ul.forums'),
-				id = 0,
-				toggled = false,
-				toggle;
-
-			if (forum.length != 1) {
-				return;
-			}
-
-			// Find category id
-			$('a[data-id]', $this).each(function() {
-				id = parseInt(this.getAttribute('data-id'));
-			});
-			if (!id) {
-				forum.find('.forumtitle[data-id]:first').each(function() {
-					id = parseInt(this.getAttribute('data-id'));
-					if (!isNaN(id)) {
-						id = 'f' + id;
-					}
-				});
-			}
-			if (!id) {
-				return;
-			}
-
-			// Add toggle code
-			$this.append('<a class="forum-toggle" href="#"></a>');
-			toggle = $this.find('.forum-toggle');
-			toggle.click(function(event) {
-				event.preventDefault();
-				if (toggled) {
-					forum.stop(true, true).slideDown(200);
-					toggled = false;
-					toggle.removeClass('toggled');
-					phpbb.deleteCookie('toggled-' + id, styleConfig.cookieConfig);
-					return;
-				}
-				forum.stop(true, true).slideUp(200);
-				toggled = true;
-				toggle.addClass('toggled');
-				phpbb.setCookie('toggled-' + id, '1', styleConfig.cookieConfig);
-			});
-
-			// Check default state
-			if (phpbb.getCookie('toggled-' + id, styleConfig.cookieConfig) == '1') {
-				forum.stop(true, true).slideUp(0);
-				toggled = true;
-				toggle.addClass('toggled');
-			}
-		});
-	}
 }
 
 /**
