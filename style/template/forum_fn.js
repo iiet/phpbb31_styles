@@ -376,8 +376,8 @@ function checkNavigation(force)
 			}
 
 			cloneClass = (
-					$this.attr('data-responsive-class') === undefined ? 
-						($this.hasClass('small-icon') ? $this.attr('class') : '') : 
+					$this.attr('data-responsive-class') === undefined ?
+						($this.hasClass('small-icon') ? $this.attr('class') : '') :
 						$this.attr('data-responsive-class')
 				) + ' responsive-index-' + i;
 
@@ -499,8 +499,8 @@ function initResponsiveNavigation()
 			}
 			// Secondary menu
 			lists.eq(0).prepend('<li class="responsive-menu dropdown-container" style="display: none;"><a href="#" class="dropdown-trigger dropdown-toggle">...</a>' +
-					'<div class="dropdown hidden">' + 
-						'<div class="pointer"><div class="pointer-inner"></div></div>' + 
+					'<div class="dropdown hidden">' +
+						'<div class="pointer"><div class="pointer-inner"></div></div>' +
 						'<ul class="dropdown-contents" /></ul>' +
 					'</div>' +
 				'</li>');
@@ -575,7 +575,7 @@ function parseDocument($container) {
 		$('.tab[data-select-match]', this).each(function() {
 			var matches = $(this).attr('data-select-match').split(','),
 				i, match, item;
-			
+
 			for (i=0; i<matches.length; i++) {
 				match = matches[i].trim();
 				if (current.indexOf(match) != -1) {
@@ -1384,7 +1384,7 @@ function parseDocument($container) {
 				}
 			}
 
-			$w.on('scroll resize', function() { 
+			$w.on('scroll resize', function() {
 				if (!isStatic) {
 					check(false);
 				}
@@ -1531,7 +1531,7 @@ function parseDocument($container) {
 				hdLoaded = false,
 				normalLoaded = false;
 
-			function replaceImage() 
+			function replaceImage()
 			{
 				$this.css('width', (img.naturalWidth ? img.naturalWidth : img.width) + 'px');
 				img.setAttribute('src', img.getAttribute('data-src-hd'));
@@ -1597,64 +1597,6 @@ function parseDocument($container) {
 	if (styleConfig._loaded) {
 		$container.find('.postprofile + .postbody > div:only-child').each(function() {
 			adjustPosterProfile($(this));
-		});
-	}
-
-	/**
-	* Collapse forums
-	*/
-	if (styleConfig.collapseForums) {
-		$container.find('.forabg li.header').each(function() {
-			var $this = $(this),
-				forum = $this.parent().next('ul.forums'),
-				id = 0,
-				toggled = false,
-				toggle;
-
-			if (forum.length != 1) {
-				return;
-			}
-
-			// Find category id
-			$('a[data-id]', $this).each(function() {
-				id = parseInt(this.getAttribute('data-id'));
-			});
-			if (!id) {
-				forum.find('.forumtitle[data-id]:first').each(function() {
-					id = parseInt(this.getAttribute('data-id'));
-					if (!isNaN(id)) {
-						id = 'f' + id;
-					}
-				});
-			}
-			if (!id) {
-				return;
-			}
-
-			// Add toggle code
-			$this.append('<a class="forum-toggle" href="#"></a>');
-			toggle = $this.find('.forum-toggle');
-			toggle.click(function(event) {
-				event.preventDefault();
-				if (toggled) {
-					forum.stop(true, true).slideDown(200);
-					toggled = false;
-					toggle.removeClass('toggled');
-					phpbb.deleteCookie('toggled-' + id, styleConfig.cookieConfig);
-					return;
-				}
-				forum.stop(true, true).slideUp(200);
-				toggled = true;
-				toggle.addClass('toggled');
-				phpbb.setCookie('toggled-' + id, '1', styleConfig.cookieConfig);
-			});
-
-			// Check default state
-			if (phpbb.getCookie('toggled-' + id, styleConfig.cookieConfig) == '1') {
-				forum.stop(true, true).slideUp(0);
-				toggled = true;
-				toggle.addClass('toggled');
-			}
 		});
 	}
 }
