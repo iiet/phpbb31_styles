@@ -4,11 +4,10 @@
 * phpBB3 forum functions
 */
 var styleConfig = {
-	staticNavigation: true,
+	staticNavigation: false,
 	staticNavigationMinWidth: 500,
 	staticNavigationMinHeight: 400,
-	extendPosterProfile: true,
-	collapseForums: true
+	extendPosterProfile: false
 };
 
 /**
@@ -376,8 +375,8 @@ function checkNavigation(force)
 			}
 
 			cloneClass = (
-					$this.attr('data-responsive-class') === undefined ? 
-						($this.hasClass('small-icon') ? $this.attr('class') : '') : 
+					$this.attr('data-responsive-class') === undefined ?
+						($this.hasClass('small-icon') ? $this.attr('class') : '') :
 						$this.attr('data-responsive-class')
 				) + ' responsive-index-' + i;
 
@@ -499,8 +498,8 @@ function initResponsiveNavigation()
 			}
 			// Secondary menu
 			lists.eq(0).prepend('<li class="responsive-menu dropdown-container" style="display: none;"><a href="#" class="dropdown-trigger dropdown-toggle">...</a>' +
-					'<div class="dropdown hidden">' + 
-						'<div class="pointer"><div class="pointer-inner"></div></div>' + 
+					'<div class="dropdown hidden">' +
+						'<div class="pointer"><div class="pointer-inner"></div></div>' +
 						'<ul class="dropdown-contents" /></ul>' +
 					'</div>' +
 				'</li>');
@@ -575,7 +574,7 @@ function parseDocument($container) {
 		$('.tab[data-select-match]', this).each(function() {
 			var matches = $(this).attr('data-select-match').split(','),
 				i, match, item;
-			
+
 			for (i=0; i<matches.length; i++) {
 				match = matches[i].trim();
 				if (current.indexOf(match) != -1) {
@@ -1384,7 +1383,7 @@ function parseDocument($container) {
 				}
 			}
 
-			$w.on('scroll resize', function() { 
+			$w.on('scroll resize', function() {
 				if (!isStatic) {
 					check(false);
 				}
@@ -1414,153 +1413,6 @@ function parseDocument($container) {
 	* Empty last post column
 	*/
 	$container.find('dd.lastpost > span:only-child > br:only-child').parents('dd.lastpost').addClass('empty');
-
-	/**
-	* Forum descriptions
-	*/
-	var animatedDescription = false;
-	$container.find('.forabg').each(function(i) {
-		var $b = $('body'),
-			$w = $(window),
-			rtl = $('#phpbb').hasClass('rtl'),
-			hide = $(this).attr('data-hide-description') == '1';
-
-		$('a.forumtitle + .forum-description', this).each(function(j) {
-			var $this = $(this);
-
-			if (!hide) {
-				$this.parents('dl.icon').addClass('with-description');
-				return;
-			}
-
-			var title = $this.prev(),
-				id = 'forumdesc-' + i + '-' + j,
-				item, top, left, width, rect, rectWidth;
-
-			$b.append($this);
-			$this.attr('id', id).append('<span class="arrow" />');
-
-			title.attr('title', '').hover(function() {
-				// Hide previous animation
-				if (animatedDescription !== false) {
-					animatedDescription.item.stop(true, true).hide();
-				}
-				animatedDescription = {
-					item: $this,
-					i: i,
-					j: j,
-					fading: false
-				};
-
-				// Calculate position
-				rect = this.getBoundingClientRect();
-				rectWidth = rect.width ? rect.width : $(this).width();
-				// $this.attr('data-rect', 'top: ' + rect.top + ', left: ' + rect.left + ', width: ' + rectWidth + ', window: ' + $w.width());
-				top = Math.floor($w.scrollTop() + rect.top);
-				if ((rect.left + rectWidth + 300) > $w.width()) {
-					$this.addClass('no-arrow');
-					top += Math.floor(rect.height ? rect.height : $(this).height());
-
-					if (!rtl) {
-						left = Math.floor($w.scrollLeft() + rect.left);
-						$this.css({
-							position: 'absolute',
-							top: top + 'px',
-							left: left + 'px'
-						});
-					}
-					else {
-						left = Math.floor($w.scrollLeft() + rect.left + rectWidth);
-						$this.css({
-							position: 'absolute',
-							top: top + 'px',
-							right: left + 'px'
-						});
-					}
-				}
-				else if (!rtl) {
-					$this.removeClass('no-arrow');
-					left = Math.floor($w.scrollLeft() + rect.left + rectWidth + 10);
-					$this.css({
-						position: 'absolute',
-						top: top + 'px',
-						left: left + 'px'
-					});
-				}
-				else {
-					$this.removeClass('no-arrow');
-					left = Math.floor($w.scrollLeft() + rect.left - 10);
-					$this.css({
-						position: 'absolute',
-						top: top + 'px',
-						right: left + 'px'
-					});
-				}
-
-				// Show
-				$this.stop(true, true).fadeIn(200);
-			}, function() {
-				// Hide
-				animatedDescription.fading = true;
-				setTimeout(700, function() {
-					if (animatedDescription !== false && animatedDescription.i == i && animatedDescription.j == j && animatedDescription.fading) {
-						animatedDescription = false;
-					}
-				});
-				$this.delay(500).fadeOut(200);
-			});
-
-			$this.addClass('toggle').click(function() {
-				// Hide
-				$this.stop(true, true).fadeOut(100);
-				if (animatedDescription !== false && animatedDescription.i == i && animatedDescription.j == j) {
-					animatedDescription = false;
-				}
-			});
-		});
-	});
-
-	/**
-	* HD images
-	*/
-	if (window.matchMedia && window.matchMedia('(-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 1.5dppx)').matches) {
-		$container.find('img[data-src-hd]').each(function() {
-			var img = this,
-				$this = $(this),
-				hdImage = new Image(),
-				hdLoaded = false,
-				normalLoaded = false;
-
-			function replaceImage() 
-			{
-				$this.css('width', (img.naturalWidth ? img.naturalWidth : img.width) + 'px');
-				img.setAttribute('src', img.getAttribute('data-src-hd'));
-			}
-
-			if (img.complete) {
-				normalLoaded = true;
-			}
-			else {
-				img.onload = function() {
-					if (normalLoaded) {
-						return;
-					}
-					normalLoaded = true;
-					if (hdLoaded) {
-						replaceImage();
-					}
-				};
-			}
-
-			hdImage.onload = function() {
-				hdLoaded = true;
-				if (normalLoaded) {
-					replaceImage();
-				}
-			};
-			hdImage.src = img.getAttribute('data-src-hd');
-		});
-	}
 
 	/**
 	* Split buttons
