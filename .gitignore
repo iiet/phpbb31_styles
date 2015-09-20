@@ -1,4 +1,5 @@
 style/theme/stylesheet.css
 style/theme/.sass-cache
-style/theme/fonts
+#style/theme/fonts
+*.js
 style/theme/stylesheet.css.map
