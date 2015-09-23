@@ -1,4 +1,4 @@
-##iet_dark
+##iet_black
 
 After deploy, run ./uglify.sh (you must have Uglifyjs installed).
 
