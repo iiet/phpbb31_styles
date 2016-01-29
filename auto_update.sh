@@ -82,7 +82,7 @@ if [ $? -ne 0 ]; then
 fi
 
 echo -e "${txtblu}Running uglifier${bldpur}"
-`$IET_DARK/uglify.sh`
+(cd $IET_DARK && ./uglify.sh)
 if [ $? -ne 0 ]; then
   echo -e "${bldred}Failure! While running uglifier"
   exit 1
@@ -110,7 +110,7 @@ if [ $? -ne 0 ]; then
 fi
 
 echo -e "${txtblu}Running uglifier${bldpur}"
-`$IET_BLACK/uglify.sh`
+(cd $IET_BLACK && ./uglify.sh)
 if [ $? -ne 0 ]; then
   echo -e "${bldred}Failure! While running uglifier"
   exit 1
