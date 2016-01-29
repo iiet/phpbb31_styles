@@ -74,7 +74,7 @@ fi
 echo -e "${txtgrn}[SUCCESS]"
 
 echo -e "${txtblu}Copying style folder to $IET_DARK ${bldpur}"
-\cp -R style $IET_DARK
+\cp -R style/* $IET_DARK
 
 if [ $? -ne 0 ]; then
   echo -e "${bldred}Failure! While copying"
@@ -102,7 +102,7 @@ fi
 echo -e "${txtgrn}[SUCCESS]"
 
 echo -e "${txtblu}Copying style folder to $IET_BLACK ${bldpur}"
-\cp -R style $IET_BLACK
+\cp -R style/* $IET_BLACK
 
 if [ $? -ne 0 ]; then
   echo -e "${bldred}Failure! While copying"
