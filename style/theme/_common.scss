@@ -707,16 +707,16 @@ $nav-alert-font-size:		9px !default;
 			}
 		}
 
-		.faq .nav-link {
+		.wiki .nav-link {
 			@extend %glyph-only;
 			&:after {
 				@extend %glyph-gi;
-				content: '\E195';	// glyphicons-circle-question-mark
+				content: '\f02d';	// glyphicons-circle-question-mark
 			}
 		}
 
 		@media (max-width: 550px) {
-			.faq {
+			.wiki {
 				&, & .nav-link {
 					display: none !important;
 				}

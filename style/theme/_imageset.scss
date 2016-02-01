@@ -281,12 +281,6 @@ span.imageset {
 		content: '\f019';	// fa-download
 	}
 }
-.icon-faq {
-	@extend %icon-image-gi;
-	&:after {
-		content: '\E195';	// glyphicons-circle-question-mark
-	}
-}
 .icon-wiki {
 	@extend %icon-image-fa;
 	&:after {
