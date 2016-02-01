@@ -292,6 +292,12 @@ span.imageset {
 		content: '\E195';	// glyphicons-circle-question-mark
 	}
 }
+.icon-wiki {
+	@extend %icon-image-fa;
+	&:after {
+		content: '\f02d';	// glyphicons-circle-question-mark
+	}
+}
 .icon-home {
 	@extend %icon-image-gi;
 	&:after {
@@ -341,8 +347,8 @@ span.imageset {
 		opacity: .7;
 	}
 }
-ul.linklist.bulletin > li.small-icon.icon-members:before { 
-	@extend .icon-members:before; 
+ul.linklist.bulletin > li.small-icon.icon-members:before {
+	@extend .icon-members:before;
 }
 .icon-notification {
 	@extend %icon-image-fa;
