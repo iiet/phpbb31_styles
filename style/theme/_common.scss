@@ -710,7 +710,7 @@ $nav-alert-font-size:		9px !default;
 		.wiki .nav-link {
 			@extend %glyph-only;
 			&:after {
-				@extend %glyph-gi;
+				@extend %glyph-fa;
 				content: '\f02d';	// glyphicons-circle-question-mark
 			}
 		}
