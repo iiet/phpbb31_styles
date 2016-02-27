@@ -728,6 +728,14 @@ $nav-alert-font-size:		9px !default;
 			}
 		}
 
+		.chat .nav-link {
+			@extend %glyph-only;
+			&:after {
+				@extend %glyph-fa;
+				content: '\f075';	// glyphicons-circle-question-mark
+			}
+		}
+
 		.wiki .nav-link {
 			@extend %glyph-only;
 			&:after {

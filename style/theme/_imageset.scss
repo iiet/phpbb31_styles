@@ -286,6 +286,12 @@ span.imageset {
 		content: '\f019';	// fa-download
 	}
 }
+.icon-chat {
+	@extend %icon-image-fa;
+	&:after {
+		content: '\f075';
+	}
+}
 .icon-wiki {
 	@extend %icon-image-fa;
 	&:after {
