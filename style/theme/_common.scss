@@ -715,6 +715,14 @@ $nav-alert-font-size:		9px !default;
 			}
 		}
 
+		.gitlab .nav-link {
+			@extend %glyph-only;
+			&:after {
+				@extend %glyph-fa;
+				content: '\f296';	// gitlab icon
+			}
+		}
+
 		.wiki .nav-link {
 			@extend %glyph-only;
 			&:after {
@@ -725,6 +733,12 @@ $nav-alert-font-size:		9px !default;
 
 		@media (max-width: 550px) {
 			.wiki {
+				&, & .nav-link {
+					display: none !important;
+				}
+			}
+
+			.gitlab {
 				&, & .nav-link {
 					display: none !important;
 				}
