@@ -292,6 +292,12 @@ span.imageset {
 		content: '\f075';
 	}
 }
+.icon-gitlab {
+	@extend %icon-image-fa;
+	&:after {
+		content: '\f296';
+	}
+}
 .icon-wiki {
 	@extend %icon-image-fa;
 	&:after {
